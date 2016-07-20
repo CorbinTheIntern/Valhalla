@@ -33,37 +33,29 @@ function init() {
 
 function getPlayerInfo () {
     var result;
-    
     if(client) {
         result = "client";
     } else {
         result = "host";
     }
-    
     socket.emit('player', result);
 }
 
 function loop () {
-    if(!loggedIn) {
-        draw('login');
-    } else if(hosting) {
-        draw('board');
-    } else {
-        draw('controller');
-    }
-    
-    if(loggedIn) {
-        if(!hosting) {
-            var inputs = checkInputs();
-        }
-        move();
-    }
+    if(!loggedIn) draw('login');
+    else if(hosting) draw('board');
+    else draw('controller');
 }
 
 function draw (screen) {
-    case(screen)
-}
-
-function checkInputs() {
-    if()
+    switch(screen) {
+        case "login":
+            ctx.drawImage(login, 0, 0, CAN_W, CAN_H);
+            break;
+        case "board":
+            ctx.drawImage(board, 0, 0, CAN_W, CAN_H);
+            for(var p in players) {
+                ctx.drawImage(sprites.sheet, sprites.red.wizard[0], sprites.red.wizard[1], 17, 20, players[p].x, players[p].y, 17, 20);
+            }
+    }
 }
